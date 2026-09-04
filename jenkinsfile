@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-        AWS_DEFAULT_REGION    = 'ap-south-1' 
+        AWS_DEFAULT_REGION    = 'ap-south-2' // Hyderabad Region
     }
     
     stages {
@@ -16,7 +16,6 @@ pipeline {
         
         stage('Terraform: Provision Infra') {
             steps {
-                // Terraform folder loki velli run chestundi
                 dir('terraform') {
                     sh 'terraform init'
                     sh 'terraform apply -auto-approve'
@@ -26,7 +25,6 @@ pipeline {
 
         stage('Create Ansible Inventory') {
             steps {
-                // Terraform folder nundi IP theeskuni, ansible folder lo unna inventory.txt loki pampisthundi
                 sh 'cd terraform && terraform output -raw server_ip > ../ansible/inventory.txt'
                 sh 'echo "New Server IP created successfully!"'
             }
@@ -40,7 +38,6 @@ pipeline {
 
         stage('Ansible: Configure Server') {
             steps {
-                // Ansible folder loki velli playbook run chestundi
                 dir('ansible') {
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-agent-1', keyFileVariable: 'SSH_KEY')]) {
                         sh '''
