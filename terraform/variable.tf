@@ -1,19 +1,19 @@
 variable "aws_region" {
-  description = "AWS region to deploy resources"
-  default     = "ap-south-1" # Mumbai
+  description = "AWS Hyderabad Region"
+  default     = "ap-south-2"
 }
 
 variable "ami_id" {
-  description = "Amazon Linux 2023 AMI"
-  default     = "ami-013e83f579886baeb" 
+  description = "Amazon Linux 2023 AMI for Hyderabad"
+  default     = "ami-0f3a9efc7dc1165a3" 
 }
 
 variable "instance_type" {
-  description = "EC2 instance size"
-  default     = "t2.micro"
+  description = "Instance size"
+  default     = "t3.micro"
 }
 
 variable "key_name" {
-  description = "SSH Key Pair name in AWS"
-  default     = "agents-jenkins.pem" # <-- Ikkada nee key peru marchu
+  description = "AWS Key Pair Name"
+  default     = "agents-jenkins" # extension .pem lekunda
 }
