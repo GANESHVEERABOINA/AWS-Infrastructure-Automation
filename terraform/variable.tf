@@ -17,3 +17,8 @@ variable "key_name" {
   description = "AWS Key Pair Name"
   default     = "agents-jenkins" # extension .pem lekunda
 }
+
+variable "security_group_id" {
+  description = "Existing Security Group ID"
+  default     = "sg-0ff74aef3bb149264"
+}
