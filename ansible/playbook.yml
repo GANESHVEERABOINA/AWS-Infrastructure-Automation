@@ -1,0 +1,19 @@
+---
+- name: Configure Newly Created AWS EC2 Server
+  hosts: all
+  become: yes # Admin (sudo) privileges
+  tasks:
+    - name: Update Yum Package Manager
+      yum:
+        update_cache: yes
+
+    - name: Install Nginx Web Server
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start and Enable Nginx Service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
