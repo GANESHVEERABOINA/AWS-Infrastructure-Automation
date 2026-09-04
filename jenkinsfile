@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('aws-access-key')
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-        AWS_DEFAULT_REGION    = 'ap-south-2' // Hyderabad Region
+        AWS_DEFAULT_REGION    = 'ap-south-2' 
     }
     
     stages {
@@ -41,6 +41,8 @@ pipeline {
                 dir('ansible') {
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-agent-1', keyFileVariable: 'SSH_KEY')]) {
                         sh '''
+                        export LC_ALL=C.UTF-8
+                        export LANG=C.UTF-8
                         export ANSIBLE_HOST_KEY_CHECKING=False
                         ansible-playbook -i inventory.txt -u ec2-user --private-key $SSH_KEY playbook.yml
                         '''
